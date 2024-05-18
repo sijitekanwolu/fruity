@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+
+
+.bg-home{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://static.promediateknologi.id/crop/0x0:0x0/0x0/webp/photo/p2/01/2024/02/26/top-view-fresh-fruits-vegetables-with-different-medicine-wooden-spoon_181624-47137-2746267362.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-admin{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://www.astronauts.id/blog/wp-content/uploads/2023/06/Cara-Membuat-Selai-Buah-Homemade-yang-Gampang-dan-Enak-1024x683.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-histori{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://www.astronauts.id/blog/wp-content/uploads/2023/06/Cara-Membuat-Selai-Buah-Homemade-yang-Gampang-dan-Enak-1024x683.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-profile{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://inforadar.disway.id/upload/b9f56eba7e3a8795690d5859284d3820.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-footer{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://img.pikbest.com/ai/illus_our/20230426/26c3111680bd3d9bdd5592253064c545.jpg!w700wp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.bg-card{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8pMEJU9ATBIwSFIr6RlwTLJlyK7xleHhsg9ki1KxlQ2euRhG7H0zKJchCrYPkta6GfVM&usqp=CAU");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-login{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKTz6JkpXO5Wvy8wtLi7AB3sniLgzuNaTNECSUfsnlhIEIfLODHgwbhGzUkm3ETUvxs6g&usqp=CAU");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-register{
+  background:linear-gradient(0deg, rgba(0, 0, 0, 0.585), rgba(44, 44, 44, 0.702)), 
+  url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPUTFW7-LszXVhF-fktxEuF8r4an1VKEFMNL9kXlFoTeGpvU1r5tC6sn0799WwW8rParI&usqp=CAU");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+header.sticky{
+  transition: .3s;
+  @apply backdrop-blur-sm bg-black/50 fixed
+}
+
