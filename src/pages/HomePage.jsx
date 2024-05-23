@@ -32,7 +32,8 @@ const HomePage = () => {
       >
         <div>
           <h2 className="text-white text-center font-bold max-sm:text-3xl text-5xl">
-            JAM MADE FROM <br /> HIGH QUALITY FRUIT
+            THE SWEET WARMTH OF HOME IN EVERY BITE, <br /> PREMIUM JAM FOR YOUR
+            SPECIAL MOMENTS.
           </h2>
 
           {/* <button

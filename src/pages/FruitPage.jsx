@@ -4,7 +4,7 @@ import { DNA } from "react-loader-spinner";
 
 const FruitPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(6);
+  const [itemPerPage] = useState(4);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +46,7 @@ const FruitPage = () => {
         </div>
       ) : (
         <div className="w-full flex flex-col px-5 ">
-          <h2 className="font-bold m-5 text-center">FRUIT NUTRITION</h2>
+          {/* <h2 className="font-bold m-5 text-center">FRUIT NUTRITION</h2> */}
           <div className="flex flex-wrap gap-10 justify-center items-center my-5">
             {currentData.map((fruit, index) => (
               <div className="card w-64 bg-base-100 bg-card shadow-xl hover:scale-105">
