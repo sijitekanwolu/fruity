@@ -4,7 +4,7 @@ import { DNA } from "react-loader-spinner";
 
 const FruitPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(4);
+  const [itemPerPage] = useState(6);
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -71,7 +71,7 @@ const MenuPage = () => {
           <div className="grid max-md:grid-cols-2 grid-cols-4 gap-10 my-5">
             {currentItems.map((selai) => (
               <Link to={`/detail/${selai.id}`}>
-                <div className="card bg-base-100   bg-gray-700/45 shadow-xl hover:scale-105">
+                <div className="card bg-base-100    shadow-xl hover:scale-105">
                   <figure>
                     <img
                       className="object-cover h-40 w-full"

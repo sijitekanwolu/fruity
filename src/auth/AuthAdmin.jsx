@@ -8,7 +8,12 @@ const AuthAdmin = () => {
   return user && role === "admin" ? (
     <Outlet />
   ) : (
-    <Navigate to={"/login"} replace state={{ path: location.pathname }} />
+    <Navigate
+      to={"/profile"}
+      replace
+      state={{ path: location.pathname }}
+      alert={"User tidak bisa menuju ke halaman admin"}
+    />
   );
 };
 

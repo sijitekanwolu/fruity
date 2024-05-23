@@ -9,11 +9,15 @@ const ProfilePage = () => {
   const [timeOfDay, setTimeOfDay] = useState("");
   const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    const currentTheme = localStorage.getItem("theme") || "dark";
-    setDarkMode(currentTheme === "light");
-    document.body.setAttribute("data-theme", currentTheme);
-  }, []);
+  const handleLogout = async () => {
+    try {
+      await logout();
+      alert("logout berhasil");
+      useNavigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleToggle = () => {
     const newTheme = darkMode ? "dark" : "light";
@@ -21,6 +25,12 @@ const ProfilePage = () => {
     localStorage.setItem("theme", newTheme);
     document.body.setAttribute("data-theme", newTheme);
   };
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme") || "light";
+    setDarkMode(currentTheme !== "dark");
+    document.body.setAttribute("data-theme", currentTheme);
+  }, []);
 
   useEffect(() => {
     const currentTime = new Date().getHours();
@@ -95,6 +105,7 @@ const ProfilePage = () => {
                   <button
                     className="btn btn-outline btn-error tooltip tooltip-bottom"
                     data-tip="Logout"
+                    onChange={handleLogout}
                   >
                     <CiLogout size={20} color="FE0000" />
                   </button>
@@ -161,7 +172,7 @@ const ProfilePage = () => {
             </div>
             <div className="flex justify-center items-center">
               <div className="card w-96 backdrop-blur-sm shadow-xl border mt-14">
-                <div className="flex justify-end m-2">
+                <div className="flex justify-between m-2">
                   <button className="btn btn-outline">
                     <label className="swap swap-rotate">
                       {/* this hidden checkbox controls the state */}

@@ -9,7 +9,12 @@ const AuthRoute = () => {
   return user ? (
     <Outlet />
   ) : (
-    <Navigate to={"/login"} replace state={{ path: location.pathname }} />
+    <Navigate
+      to={"/profile"}
+      replace
+      state={{ path: location.pathname }}
+      alert={"User tidak bisa menuju ke halaman admin"}
+    />
   );
 };
 

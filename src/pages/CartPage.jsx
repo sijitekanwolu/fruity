@@ -26,22 +26,19 @@ const CartPage = () => {
     const totalPrice = filteredCart.reduce((total, cart) => {
       return total + cart.harga * cart.jumlah;
     }, 0);
-    // calculateShippingCost();
     setTotalPrice(totalPrice);
   };
 
   const toggleCheckbox = (cartId) => {
-    if (checkedItems.includes(cartId)) {
-      setCheckedItems(checkedItems.filter((id) => id !== cartId));
-    } else {
-      setCheckedItems([...checkedItems, cartId]);
-    }
+    setCheckedItems((prevCheckedItems) =>
+      prevCheckedItems.includes(cartId)
+        ? prevCheckedItems.filter((id) => id !== cartId)
+        : [...prevCheckedItems, cartId]
+    );
   };
 
   const handleCheckboxChange = (cartId) => {
     toggleCheckbox(cartId);
-    calculateTotalPrice();
-    // calculateShippingCost();
   };
 
   const increaseQuantity = async (cartId, currentQuantity) => {
@@ -51,30 +48,25 @@ const CartPage = () => {
       .update({ jumlah: newQuantity })
       .eq("id", cartId);
 
-    fetchCart();
-
     if (error) {
       console.log(error);
-    }
-    if (data) {
-      console.log(data);
+    } else {
+      fetchCart();
     }
   };
 
-  const ripeadQuantity = async (cartId, currentQuantity) => {
+  const decreaseQuantity = async (cartId, currentQuantity) => {
+    if (currentQuantity <= 1) return;
     const newQuantity = currentQuantity - 1;
     const { data, error } = await supabase
       .from("keranjang")
       .update({ jumlah: newQuantity })
       .eq("id", cartId);
 
-    fetchCart();
-
     if (error) {
       console.log(error);
-    }
-    if (data) {
-      console.log(data);
+    } else {
+      fetchCart();
     }
   };
 
@@ -84,13 +76,10 @@ const CartPage = () => {
       .delete()
       .eq("id", cartId);
 
-    fetchCart();
-
     if (error) {
       console.log(error);
-    }
-    if (data) {
-      console.log(data);
+    } else {
+      fetchCart();
     }
   }
 
@@ -109,12 +98,17 @@ const CartPage = () => {
   };
 
   const deleteCheckedItems = async () => {
-    const selectedProducts = getCart.filter((cart) =>
-      checkedItems.includes(cart.id)
-    );
-    const cartIdsToDelete = selectedProducts.map((item) => item.id);
-    await supabase.from("keranjang").delete().in("id", cartIdsToDelete);
-    fetchCart();
+    const { error } = await supabase
+      .from("keranjang")
+      .delete()
+      .in("id", checkedItems);
+
+    if (error) {
+      console.log(error);
+    } else {
+      setCheckedItems([]);
+      fetchCart();
+    }
   };
 
   const handleCheckout = async (e) => {
@@ -135,12 +129,10 @@ const CartPage = () => {
       return;
     }
 
-    const selectedProducts = getCart.filter((cart) =>
-      checkedItems.includes(cart.id)
-    );
-    const productsToCheckout = selectedProducts.map((item) => ({
-      nama_produk: item.produk,
-    }));
+    const getNameProduk = getCart
+      .filter((produk) => checkedItems.includes(produk.id))
+      .map((produk) => produk.produk)
+      .join(", "); // Menggabungkan array produk menjadi string
 
     try {
       const { data: checkoutData, error: checkoutError } = await supabase
@@ -148,7 +140,7 @@ const CartPage = () => {
         .insert({
           ic_cust: user.id,
           cust: getName[0].username,
-          produk: productsToCheckout,
+          produk: getNameProduk,
           total: totalPrice,
         })
         .select();
@@ -171,10 +163,10 @@ const CartPage = () => {
 
   useEffect(() => {
     calculateTotalPrice();
-  }, [getCart, checkedItems]);
+  }, [checkedItems]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-screen">
       <div className="flex p-5">
         <Link to={"/"}>
           <button className="btn btn-square btn-outline">
@@ -197,11 +189,14 @@ const CartPage = () => {
       </div>
       <h2 className="text-center text-2xl font-bold ">CART</h2>
       {getCart.map((cart) => (
-        <div className="card card-side bg-base-100 shadow-xl mt-5 m-5 border max-sm:flex max-sm:flex-col">
+        <div
+          key={cart.id}
+          className="card card-side bg-base-100 shadow-xl mt-5 m-5 border max-sm:flex max-sm:flex-col"
+        >
           <input
             type="checkbox"
             className="checkbox checkbox-error m-5 mt-24 max-sm:mt-5"
-            checked={checkedItems[cart.id]}
+            checked={checkedItems.includes(cart.id)}
             onChange={() => handleCheckboxChange(cart.id)}
           />
           <figure className="w-24 ml-4 rounded-2xl">
@@ -222,14 +217,15 @@ const CartPage = () => {
             <div className="flex justify-between w-10 h-12 gap-2 ">
               <button
                 className="btn btn-outline btn-error"
-                onClick={() => ripeadQuantity(cart.id, cart.jumlah)}
+                onClick={() => decreaseQuantity(cart.id, cart.jumlah)}
               >
                 <FiMinus className="-m-5" />
               </button>
               <input
                 type="text"
                 className="w-14 rounded-lg border text-center bg-black text-white"
-                placeholder={cart.jumlah}
+                value={cart.jumlah}
+                readOnly
               />
               <button
                 className="btn btn-outline btn-success"
@@ -252,22 +248,10 @@ const CartPage = () => {
       ))}
 
       <div className="mt-6 rounded-lg w-full total-price-sticky border p-6 shadow-md md:mt-0">
-        {checkedItems.length > 0 ? (
-          <>
-            <div className="flex justify-between ">
-              <p className="text-lg  font-bold">Total</p>
-              <p className="mb-1 text-lg font-bold">${totalPrice}</p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex justify-between ">
-              <p className="text-lg  font-bold">Total</p>
-              <p className="mb-1 text-lg font-bold">${0}</p>
-            </div>
-          </>
-        )}
-
+        <div className="flex justify-between">
+          <p className="text-lg font-bold">Total</p>
+          <p className="mb-1 text-lg font-bold">${totalPrice}</p>
+        </div>
         <form onSubmit={handleCheckout}>
           <button className="btn btn-outline btn-success w-full mt-3">
             Check out

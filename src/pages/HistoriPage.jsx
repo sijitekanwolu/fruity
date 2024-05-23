@@ -20,7 +20,7 @@ const HistoriPage = () => {
         const { data, error } = await supabase
           .from("co")
           .select("*")
-          .eq("id_cust", user.id);
+          .eq("ic_cust", user.id);
         if (error) {
           throw error;
         }
@@ -71,10 +71,12 @@ const HistoriPage = () => {
           </button>
         </Link>
       </div>
-      <h4 className="text-center font-bold text-2xl m-5">SHOPPING HISTORY</h4>
+      <h4 className="text-center font-bold text-2xl text-white m-5">
+        SHOPPING HISTORY
+      </h4>
       {role === "admin" ? (
         <div className="overflow-x-auto">
-          <table className="table table-zebra">
+          <table className="table">
             <thead>
               <tr className="text-white">
                 <th>No</th>
@@ -86,13 +88,13 @@ const HistoriPage = () => {
             </thead>
             <tbody>
               {pesanan.map((co, index) => (
-                <tr key={index}>
+                <tr key={index} className="text-white">
                   <th>{index + 1}</th>
                   <td>{co.cust}</td>
                   <td>{co.produk}</td>
                   <td>$ {co.total}</td>
+
                   <td>
-                    {" "}
                     <button
                       className="btn btn-error btn-outline btn-xs"
                       onClick={() => deletePesanan(co.id)}
@@ -107,9 +109,9 @@ const HistoriPage = () => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra">
+          <table className="table">
             <thead>
-              <tr>
+              <tr className="text-white">
                 <th>No</th>
                 <th>Name</th>
                 <th>Product</th>
@@ -118,7 +120,7 @@ const HistoriPage = () => {
             </thead>
             <tbody>
               {pesanan.map((co, index) => (
-                <tr key={index}>
+                <tr key={index} className="text-white">
                   <th>{index + 1}</th>
                   <td>{co.cust}</td>
                   <td>{co.produk}</td>

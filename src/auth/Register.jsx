@@ -11,11 +11,13 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      alert("Password anda tidak sama");
+      alert("Passwords do not match");
+      return;
     }
+
+    setLoading(true);
 
     const { error } = await supabase.auth.signUp({
       email: emailRef.current.value,
@@ -23,15 +25,15 @@ const Register = () => {
     });
 
     if (error) {
-      alert("gagal mendaftar");
+      alert("Failed to register: " + error.message);
     } else {
-      alert("Sukses Mendaftar, silahkan cek email anda untuk verfikasi");
+      alert(
+        "Successfully registered, please check your email for verification"
+      );
     }
 
     setLoading(false);
   };
-
-  console.log(emailRef);
   return (
     <section className="flex flex-col h-screen bg-register items-center justify-center">
       <div className="flex max-sm:flex-col justify-center items-center mt-10">
@@ -41,23 +43,23 @@ const Register = () => {
               <h2 className="text-center text-white font-bold">REGISTER</h2>
               <h4 className="text-white mt-5">Email</h4>
               <input
-                className="input input-bordered bg-transparent w-full"
+                className="input input-bordered mt-2 border-gray-500 text-white bg-transparent w-full"
                 type="email"
                 ref={emailRef}
                 placeholder="Input your Email"
               />
-              <h4 className="text-white mt-4">Password</h4>
+              <h4 className="text-white mt-2">Password</h4>
               <input
-                className="input input-bordered bg-transparent w-full"
+                className="input input-bordered mt-2 border-gray-500 text-white bg-transparent w-full"
                 type="password"
                 ref={passwordRef}
                 placeholder="Input your Password"
               />
-              <h4 className="text-white bg-transparent mt-4">
+              <h4 className="text-white bg-transparent mt-2">
                 Confirm Password
               </h4>
               <input
-                className="input input-bordered bg-transparent w-full"
+                className="input input-bordered mt-2 border-gray-500 text-white bg-transparent w-full"
                 type="password"
                 ref={confirmPasswordRef}
                 placeholder="Input your Password"

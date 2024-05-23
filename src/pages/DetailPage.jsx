@@ -11,7 +11,8 @@ const DetailPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
@@ -43,6 +44,12 @@ const DetailPage = () => {
 
   async function addToCart() {
     console.log(getDetail[0].produk);
+
+    if (!user) {
+      // Jika pengguna belum login, arahkan ke halaman login
+      navigate("/login");
+      return;
+    }
     try {
       const { data, error } = await supabase
         .from("keranjang")

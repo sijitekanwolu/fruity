@@ -155,7 +155,9 @@ const Header = () => {
                           </span>
                         </div>
 
-                        <span className="text-sm mt-2">${cart.harga}</span>
+                        <span className="text-sm mt-2">
+                          ${cart.harga * cart.jumlah}
+                        </span>
                       </div>
                     ))}
                     <div className="card-actions">

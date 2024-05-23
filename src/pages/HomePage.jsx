@@ -12,26 +12,35 @@ import "./swipe.css";
 import FruitPage from "./FruitPage";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const { user } = useAuth();
+  // const navigate = useNavigate();
+
+  // const handleLearnMore = () => {
+  //   navigate("/menu"); // Specify the path to MenuPage
+  // };
 
   console.log(user);
   return (
     <>
       <Header />
       <section
-        className="bg-home w-full flex items-center px-5 h-screen bg-white "
+        className="bg-home w-full flex justify-center items-center px-5 h-screen bg-white "
         id="home"
       >
         <div>
-          <h2 className="text-white font-bold max-sm:text-3xl text-5xl">
-            look for <br /> your favorite jams
+          <h2 className="text-white text-center font-bold max-sm:text-3xl text-5xl">
+            JAM MADE FROM <br /> HIGH QUALITY FRUIT
           </h2>
 
-          <button className="btn btn-outline mt-10 max-sm:mt-5 btn-success">
+          {/* <button
+            className="btn btn-outline mt-10 max-sm:mt-5 btn-success"
+            onClick={handleLearnMore}
+          >
             learn more
-          </button>
+          </button> */}
         </div>
 
         {/* <div className="w-full h-full px-5 flex justify-center items-center relative">

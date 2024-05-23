@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const CreatePage = () => {
   const [selais, setSelais] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [imageUpload, setImageUpload] = useState([]);
   const [imagePreview, setImagePreview] = useState("");
@@ -84,6 +85,7 @@ const CreatePage = () => {
     if (!error) {
       window.location.reload();
     }
+    setLoading(true);
   }
 
   async function deleteSelai(selaiId) {
@@ -95,7 +97,7 @@ const CreatePage = () => {
 
       const { data: getImage } = await supabase.storage
         .from("image_produk")
-        .remove([`images/${getProductImageById[0].images}`]);
+        .remove([`images/${getProductImageById[0].gambar}`]);
 
       const { error } = await supabase.from("selai").delete().eq("id", selaiId);
 
@@ -310,8 +312,9 @@ const CreatePage = () => {
             <button
               type="submit"
               className="btn mt-3 btn-outline w-full btn-accent"
+              disabled={loading}
             >
-              Add
+              {loading ? "Loading..." : "Add"}
             </button>
           </form>
         </div>
@@ -386,8 +389,9 @@ const CreatePage = () => {
             <button
               type="submit"
               className="btn mt-3 btn-outline w-full btn-accent"
+              disabled={loading}
             >
-              save changes
+              {loading ? "Loading..." : "Save changes"}
             </button>
           </form>
         </div>
@@ -396,35 +400,37 @@ const CreatePage = () => {
         </form>
       </dialog>
       <div className="overflow-x-auto mt-5">
-        <table className="table backdrop-blur-md">
+        <table className="table table-auto w-full backdrop-blur-md">
           {/* head */}
           <thead>
-            <tr className="text-white">
+            <tr className="text-white text-center">
               <th>No</th>
-              <th>picture Product</th>
+              <th>Picture Product</th>
               <th>Product</th>
               <th>Price</th>
               <th>Rating</th>
-              <th>description</th>
+              <th>Description</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {selais.map((selai, index) => (
-              <tr key={index} className="text-xs text-white">
+              <tr key={index} className="text-xs  text-center text-white">
                 <th>{index + 1}</th>
                 <td>
-                  <img
-                    src={image(selai.gambar)}
-                    alt={selai.gambar}
-                    width={100}
-                  />
+                  <div className="items-center justify-center flex">
+                    <img
+                      src={image(selai.gambar)}
+                      alt={selai.gambar}
+                      className="w-20 max-h-15 object-cover "
+                    />
+                  </div>
                 </td>
                 <td>{selai.produk}</td>
                 <td>{selai.harga}</td>
                 <td>{selai.reting}</td>
                 <td>{truncate(selai.deskripsi, 22, 22)}</td>
-                <td className="flex gap-2">
+                <td className="flex gap-2 items-center justify-center">
                   <button
                     onClick={() => {
                       deleteSelai(selai.id);
@@ -438,8 +444,7 @@ const CreatePage = () => {
                       displaySelai(selai.id);
                       document.getElementById("my_modal_4").showModal();
                     }}
-                    className="btn sm:btn-sm text-xs btn-outline
-            btn-accent"
+                    className="btn sm:btn-sm text-xs btn-outline btn-accent"
                   >
                     Edit
                   </button>
