@@ -45,7 +45,7 @@ const FruitPage = () => {
           <h2 className="mt-2 text-sm">Loading...</h2>
         </div>
       ) : (
-        <div className="w-full flex flex-col px-5 ">
+        <div className="w-full flex flex-col px-5 mt-5">
           {/* <h2 className="font-bold m-5 text-center">FRUIT NUTRITION</h2> */}
           <div className="flex flex-wrap gap-10 justify-center items-center my-5">
             {currentData.map((fruit, index) => (

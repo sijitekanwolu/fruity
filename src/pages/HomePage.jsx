@@ -31,7 +31,7 @@ const HomePage = () => {
         id="home"
       >
         <div>
-          <h2 className="text-white text-center font-bold max-sm:text-3xl text-5xl">
+          <h2 className="text-white text-center font-bold max-sm:text-xl text-3xl">
             THE SWEET WARMTH OF HOME IN EVERY BITE, <br /> PREMIUM JAM FOR YOUR
             SPECIAL MOMENTS.
           </h2>
